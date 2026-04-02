@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil Shopee</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* CSS manual <20% */
+    .profile-header {
+      background: #ff5722;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+    #game-box {
+      width: 100px;
+      height: 100px;
+      background: #ff9800;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="profile-header">
+    <h1>Profil Saya</h1>
+    <p>Halo, saya adalah penjual!</p>
+    <a href="landingpage.html" class="btn btn-light">Kembali ke Landing</a>
+  </div>
+
+  <!-- Info Profil -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="pompompurin.jpg" class="img-fluid rounded-circle" alt="Foto Profil">
+      </div>
+      <div class="col-md-8">
+        <h2>Spongebob Family</h2>
+        <p>Ready filling your need!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game/Animasi -->
+  <div class="container text-center my-5">
+    <h3>Mini Game: Klik Kotak!</h3>
+    <p>Klik kotak oranye sebanyak mungkin dalam 10 detik.</p>
+    <button class="btn btn-primary mb-3" onclick="startGame()">Mulai Game</button>
+    <div id="game-area" style="height:300px; border:1px solid #ccc; position:relative;">
+      <div id="game-box"></div>
+    </div>
+    <h4 id="score">Skor: 0</h4>
+  </div>
+
+  <script>
+    let score = 0;
+    let gameInterval;
+    let timer;
+
+    function startGame() {
+      score = 0;
+      document.getElementById("score").innerText = "Skor: 0";
+      moveBox();
+      gameInterval = setInterval(moveBox, 1000);
+      timer = setTimeout(endGame, 10000);
+    }
+
+    function moveBox() {
+      const box = document.getElementById("game-box");
+      const area = document.getElementById("game-area");
+      const maxX = area.clientWidth - box.offsetWidth;
+      const maxY = area.clientHeight - box.offsetHeight;
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+      box.style.left = x + "px";
+      box.style.top = y + "px";
+      box.onclick = () => {
+        score++;
+        document.getElementById("score").innerText = "Skor: " + score;
+      };
+    }
+
+    function endGame() {
+      clearInterval(gameInterval);
+      alert("Game selesai! Skor akhir: " + score);
+    }
+  </script>
+</body>
+</html>
